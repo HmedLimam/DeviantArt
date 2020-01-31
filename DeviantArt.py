@@ -8,7 +8,7 @@ headers = {
 }
 urllib3.disable_warnings()
 page=1
-search = input('>')
+search = input('Searching for : ')
 template = f"https://www.deviantart.com/search/deviations?page={page}&q={search}"
 session = requests.session()
 r1 = session.get(template,headers=headers)
