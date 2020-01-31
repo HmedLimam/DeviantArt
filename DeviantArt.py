@@ -43,6 +43,7 @@ while True:
                 r2 = requests.get(img_link)
             except requests.exceptions.SSLError:
                 i+=1
+                continue
             soup2 = bs4.BeautifulSoup(r2.text,'lxml')
             try:
                 final_bloc = soup2.select('div._1LGGs div img')[0]["src"]
