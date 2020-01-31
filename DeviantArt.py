@@ -8,7 +8,7 @@ headers = {
 }
 urllib3.disable_warnings()
 page=1
-search = input('>')
+search = input('Searching for : ')
 template = f"https://www.deviantart.com/search/deviations?page={page}&q={search}"
 session = requests.session()
 r1 = session.get(template,headers=headers)
@@ -22,11 +22,7 @@ if "No results" in about_results_number:
 else:
     print(f"About {about_results_number} for \"{search}\".")
 results_number = about_results_number[:about_results_number.index(' results')]
-if results_number[-1] == "K":
-    continue_question = input('Warning too many files to download.\nContinue anyway? (yes/no)\n>').lower()
-    if continue_question == "no" or continue_question == "n":
-        exit()
-if results_number[-1] == "M":
+if results_number[-1] == "K" or results_number[-1] == "M":
     continue_question = input('Warning too many files to download.\nContinue anyway? (yes/no)\n>').lower()
     if continue_question == "no" or continue_question == "n":
         exit()
