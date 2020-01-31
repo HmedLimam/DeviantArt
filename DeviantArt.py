@@ -1,13 +1,17 @@
-"""Author : u/Infreezy
-
-Note : Apparently it only works if default browser is Chrome.
-Error : requests.exceptions.SSLError: HTTPSConnectionPool(host='www.deviantart.com', port=443): Max retries exceeded with url: /infreezy/art/Yare-Yare-795900546 (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:1076)')))"""
-# TODO : fix SSLError & Timeouts
-import requests,bs4,os
+"""Author : Ahmed Limam
+u/Infreezy
+Note : If it doesn't work, try putting chrome as your default browser.
+"""
+import requests,bs4,os,urllib3
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0",
+}
+urllib3.disable_warnings()
 page=1
-search = input('Search >')
+search = input('>')
 template = f"https://www.deviantart.com/search/deviations?page={page}&q={search}"
-r1 = requests.get(template)
+session = requests.session()
+r1 = session.get(template,headers=headers)
 r1.raise_for_status()
 soup1 = bs4.BeautifulSoup(r1.text, 'lxml')
 body1 = soup1.body
@@ -28,7 +32,8 @@ if results_number[-1] == "M":
         exit()
 while True:
     template = f"https://www.deviantart.com/search/deviations?page={page}&q={search}"
-    r1 = requests.get(template)
+    session = requests.session()
+    r1 = session.get(template, headers=headers)
     r1.raise_for_status()
     soup1 = bs4.BeautifulSoup(r1.text, 'lxml')
     body1 = soup1.body
@@ -39,7 +44,8 @@ while True:
             img_link =imgs_bloc["href"]
             print("Loading "+img_link)
             try :
-                r2 = requests.get(img_link)
+                r2 = session.get(img_link, headers=headers)
+                r2.raise_for_status()
             except requests.exceptions.SSLError:
                 i+=1
                 continue
@@ -52,7 +58,8 @@ while True:
                 os.mkdir("imgs")
             except FileExistsError:
                 pass
-            r3 = requests.get(final_bloc)
+            r3 = session.get(final_bloc, headers=headers)
+            r3.raise_for_status()
             file = open(os.path.join("imgs",os.path.basename(img_link))+".png","wb")
             print(f"\tDownloading {final_bloc}")
             for chunk in r3.iter_content(100000):
@@ -65,3 +72,4 @@ while True:
     except IndexError:
         print("Done.")
         break
+input()
