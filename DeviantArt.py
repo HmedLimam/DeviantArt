@@ -1,5 +1,4 @@
-"""Author : Ahmed Limam
-u/Infreezy
+"""Author : u/Infreezy
 
 Note : Apparently it only works if default browser is Chrome.
 Error : requests.exceptions.SSLError: HTTPSConnectionPool(host='www.deviantart.com', port=443): Max retries exceeded with url: /infreezy/art/Yare-Yare-795900546 (Caused by SSLError(SSLZeroReturnError(6, 'TLS/SSL connection has been closed (EOF) (_ssl.c:1076)')))"""
