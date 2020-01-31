@@ -8,11 +8,10 @@ headers = {
 }
 urllib3.disable_warnings()
 page=1
-search = input('Searching for : ')
+search = input('>')
 template = f"https://www.deviantart.com/search/deviations?page={page}&q={search}"
 session = requests.session()
 r1 = session.get(template,headers=headers)
-r1.raise_for_status()
 soup1 = bs4.BeautifulSoup(r1.text, 'lxml')
 body1 = soup1.body
 about_results_number = body1.select("span._4pI41")[0].text
@@ -30,7 +29,6 @@ while True:
     template = f"https://www.deviantart.com/search/deviations?page={page}&q={search}"
     session = requests.session()
     r1 = session.get(template, headers=headers)
-    r1.raise_for_status()
     soup1 = bs4.BeautifulSoup(r1.text, 'lxml')
     body1 = soup1.body
     print("\nCurrently on page",page)
@@ -41,7 +39,6 @@ while True:
             print("Loading "+img_link)
             try :
                 r2 = session.get(img_link, headers=headers)
-                r2.raise_for_status()
             except requests.exceptions.SSLError:
                 i+=1
                 continue
@@ -55,7 +52,6 @@ while True:
             except FileExistsError:
                 pass
             r3 = session.get(final_bloc, headers=headers)
-            r3.raise_for_status()
             file = open(os.path.join("imgs",os.path.basename(img_link))+".png","wb")
             print(f"\tDownloading {final_bloc}")
             for chunk in r3.iter_content(100000):
@@ -66,6 +62,5 @@ while True:
         except Exception:
             pass
     except IndexError:
-        print("Done.")
+        print("\nDone.")
         break
-input()
