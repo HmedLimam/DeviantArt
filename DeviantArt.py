@@ -6,7 +6,7 @@ Error : requests.exceptions.SSLError: HTTPSConnectionPool(host='www.deviantart.c
 # TODO : fix SSLError & Timeouts
 import requests,bs4,os
 page=1
-search = input('>')
+search = input('Search >')
 template = f"https://www.deviantart.com/search/deviations?page={page}&q={search}"
 r1 = requests.get(template)
 r1.raise_for_status()
