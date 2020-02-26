@@ -1,6 +1,6 @@
 """Author : Ahmed Limam
 u/Infreezy
-Note : If it doesn't work, try putting chrome as your default browser or change the user-agent.
+Note : If it doesn't work, try installing chrome & put it as ur default browser
 """
 import requests,bs4,os,urllib3
 headers = {
