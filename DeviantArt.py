@@ -1,7 +1,3 @@
-"""Author : Ahmed Limam
-u/Infreezy
-Note : If it doesn't work, try installing chrome & put it as ur default browser
-"""
 import requests,bs4,os,urllib3
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0",
@@ -21,10 +17,14 @@ if "No results" in about_results_number:
 else:
     print(f"About {about_results_number} for \"{search}\".")
 results_number = about_results_number[:about_results_number.index(' results')]
-if results_number[-1] == "K" or results_number[-1] == "M":
-    continue_question = input('Warning too many files to download.\nContinue anyway? (yes/no)\n>').lower()
-    if continue_question == "no" or continue_question == "n":
-        exit()
+continue_question = input('Download? y/n :').lower()
+if 'n' in continue_question:
+    exit()
+continue_question = input('Download? y/n :').lower()
+if 'y' in continue_question:
+    pass
+elif 'n' in continue_question:
+    exit()
 while True:
     template = f"https://www.deviantart.com/search/deviations?page={page}&q={search}"
     session = requests.session()
